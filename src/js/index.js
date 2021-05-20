@@ -8,7 +8,9 @@ import '../scss/main.scss';
 
 console.log('HELLO 🚀')
 
-
+if(localStorage.getItem('data')==null) {
+    localStorage.setItem('data');
+}
 
 const entry={
     current: new Date().toISOString().slice(0, 10),
@@ -22,6 +24,8 @@ if(data) {
     data.push(entry);
     console.log(data[data.length-1]);
 }
+
+
 
 const add=document.querySelector(".form__image");
 const remove=document.querySelector(".form__button");
