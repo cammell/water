@@ -8,13 +8,16 @@ import '../scss/main.scss';
 
 console.log('HELLO 🚀')
 
-if(localStorage.getItem('data')==null) {
-    localStorage.setItem('data');
-}
+
+
 
 const entry={
     current: new Date().toISOString().slice(0, 10),
     glasses: 0,
+}
+const entry1={
+    current: "2021-05-23",
+    glasses: 3,
 }
 
 let data = [];
@@ -22,10 +25,46 @@ let data = [];
 //check if today exist in dataset and if not, create it.
 if(data) {
     data.push(entry);
-    console.log(data[data.length-1]);
+    data.push(entry1);
+    
+    console.log(data);
 }
+let datastring=JSON.stringify(data);
+console.log(datastring);
+
+let readData=[];
+readData=JSON.parse(datastring);
+console.log(readData);
+
+// console.log(localStorage.getItem('data'));
+
+// let datastring="";
+// for(let i=0;data.length;i++) {
+//     console.log('Ilość pętli for:' $i);
+//     datastring+=JSON.stringify(data[i]);
+// }
+// console.log(data);
+// console.log(datastring);
 
 
+function saveToLocalStorage() {
+    //data array to string
+    let datastring=null;
+    for(let i=0;data.length-1;i++) {
+        datastring+=JSON.stringify(data[i]);
+    }
+    console.log(data);
+    console.log(datastring);
+    
+    if(localStorage.getItem('data')==null) {
+        localStorage.setItem('data', datastring);
+    }
+    else {
+
+    }
+    let alldata =[];
+
+}
 
 const add=document.querySelector(".form__image");
 const remove=document.querySelector(".form__button");
