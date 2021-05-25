@@ -27,6 +27,14 @@ body {
     border-radius: 10px;
     background-color: #c4c4c4;
   }
+  &__text {
+    position: absolute;
+    margin: 0 auto;
+    z-index: 99;
+    text-align: center;
+    top: 60%;
+    font-size: 3em;
+  }
 }
 .h1 {
   justify-content: center;
