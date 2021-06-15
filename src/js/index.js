@@ -24,8 +24,8 @@ let data = [];
 
 //check if today exist in dataset and if not, create it.
 if(data) {
-    data.push(entry);
     data.push(entry1);
+    data.push(entry);
     
     console.log(data);
 }
@@ -35,6 +35,13 @@ console.log(datastring);
 let readData=[];
 readData=JSON.parse(datastring);
 console.log(readData);
+
+//change text value to glass number 
+const text = document.querySelector(".form__text");
+function glassCount() {
+    text.innerText(data[data.length-1].glasses);
+}
+
 
 // console.log(localStorage.getItem('data'));
 
@@ -83,6 +90,7 @@ add.addEventListener('click', event => {
         }
     console.log(data[data.length-1].glasses)
     console.log(data[data.length-1])
+    glassCount();
 })
 remove.addEventListener('click', event => {
     let today= new Date().toISOString().slice(0,10);
@@ -99,4 +107,5 @@ remove.addEventListener('click', event => {
         data[data.length-1].glasses=0;
         }
         console.log(data[data.length-1].glasses)
+        glassCount();
 })
