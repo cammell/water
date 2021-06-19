@@ -39,7 +39,8 @@ console.log(readData);
 //change text value to glass number 
 const text = document.querySelector(".form__text");
 function glassCount() {
-    text.innerText(data[data.length-1].glasses);
+    text.innerText=data[data.length-1].glasses;
+    
 }
 
 
@@ -57,19 +58,20 @@ function glassCount() {
 function saveToLocalStorage() {
     //data array to string
     let datastring=null;
-    for(let i=0;data.length-1;i++) {
-        datastring+=JSON.stringify(data[i]);
-    }
-    console.log(data);
-    console.log(datastring);
+    datastring=JSON.stringify(data);
     
     if(localStorage.getItem('data')==null) {
         localStorage.setItem('data', datastring);
     }
-    else {
-
+    else  {
+        let alldata =[];
+        alldata=JSON.parse(localStorage.getItem('data'));        
+            //check if last entry is today and save current glass number
     }
+    
     let alldata =[];
+    alldata=JSON.parse(datastring);
+    alldata.push(entry)
 
 }
 
