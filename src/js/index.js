@@ -111,3 +111,7 @@ remove.addEventListener('click', event => {
         console.log(data[data.length-1].glasses)
         glassCount();
 })
+
+window.addEventListener('load', (event) => {
+    glassCount();
+})
