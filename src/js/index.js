@@ -11,21 +11,23 @@ console.log('HELLO 🚀')
 
 
 
-const entry={
+const today={
+    full_date: new Date(),
     current: new Date().toISOString().slice(0, 10),
-    glasses: 0,
+        glasses: 0,
 }
-const entry1={
-    current: "2021-05-23",
-    glasses: 3,
-}
+// const entry1={
+//     current: "2021-05-23",
+//     glasses: 3,
+// }
 
 let data = [];
 
+
 //check if today exist in dataset and if not, create it.
 if(data) {
-    data.push(entry1);
-    data.push(entry);
+    //data.push(entry1); test entry
+    data.push(today); //current date
     
     console.log(data);
 }
@@ -42,7 +44,7 @@ function glassCount() {
     text.innerText=data[data.length-1].glasses;
     
 }
-
+saveToLocalStorage();
 
 // console.log(localStorage.getItem('data'));
 
@@ -59,19 +61,23 @@ function saveToLocalStorage() {
     //data array to string
     let datastring=null;
     datastring=JSON.stringify(data);
-    
+    console.log("saveToLocalStorage function: datastring: ", datastring );
     if(localStorage.getItem('data')==null) {
         localStorage.setItem('data', datastring);
     }
     else  {
         let alldata =[];
         alldata=JSON.parse(localStorage.getItem('data'));        
-            //check if last entry is today and save current glass number
+        if (alldata[alldata.length-1]=!today) {
+            alldata.push[today];
+            localStorage.setItem('data', JSON.parse(alldata));
+
+        }    //check if last entry is today and save current glass number
     }
     
     let alldata =[];
     alldata=JSON.parse(datastring);
-    alldata.push(entry)
+    alldata.push(today)
 
 }
 
