@@ -9,17 +9,29 @@ import '../scss/main.scss';
 console.log('HELLO 🚀')
 
 
-
-
+//check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
 const today={
     full_date: new Date(),
     current: new Date().toISOString().slice(0, 10),
-        glasses: 0,
+    glasses: 0,
+} 
+//check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
+
+if(localStorage.getItem("data")===NULL)
+    var alldata=[];
+    alldata.push(today);
+    saveToLocalStorage();
+else {
+    var alldata= [];
+    alldata=JSON.parse(localStorage.getItem("data"));
 }
-// const entry1={
-//     current: "2021-05-23",
-//     glasses: 3,
-// }
+
+
+//check if theres today in saved localStorage and add it if there is not
+
+if(alldata===NULL) {
+
+}
 
 let data = [];
 
