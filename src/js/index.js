@@ -17,18 +17,25 @@ const today={
 } 
 //check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
 
-if(localStorage.getItem("data")===NULL)
+if(localStorage.getItem("data")===NULL) {
     var alldata=[];
     alldata.push(today);
     saveToLocalStorage();
+    }
 else {
-    var alldata= [];
-    alldata=JSON.parse(localStorage.getItem("data"));
+    //check if theres today in saved localStorage and add it if there is not
+    if(checkToday()) {
+
+    }
+    
 }
 
 
 //check if theres today in saved localStorage and add it if there is not
-
+let checkToday() {
+    var alldata= [];
+    alldata=JSON.parse(localStorage.getItem("data"));
+}
 if(alldata===NULL) {
 
 }
