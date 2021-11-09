@@ -15,9 +15,13 @@ const today={
     current: new Date().toISOString().slice(0, 10),
     glasses: 0,
 } 
+
+//flag for checking if today is current date in saved localStorag
+let isCurrent=false;
+checkToday();
 //check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
 
-if(checkToday()) {
+if(isCurrent) {
     var alldata=[];
     alldata.push(today);
     saveToLocalStorage();
@@ -32,18 +36,22 @@ else {
 
 
 //check if theres today in saved localStorage and add it if there is not
-function checkToday() { 
+function checkToday() {
     
     var alldata= [];
     alldata=JSON.parse(localStorage.getItem("data"));
-
-if(alldata===NULL) {
+    console.log("inside function checkToday, ", alldata);
+if(alldata===null) {
+    isCurrent=false;
     return 0;
 } else {
     if(alldata.at(-1).full_date.getDate()==today.full_date.getDate()&&
        alldata.at(-1).full_date.getMonth()==today.full_date.getMonth()&&
-       alldata.at(-1).full_date.getFullYear()==today.full_date.getFullYear())
-        return 1;
+       alldata.at(-1).full_date.getFullYear()==today.full_date.getFullYear()) 
+       {
+       isCurrent=true;
+       return 1;
+       }
     else return 0;
 }
 }     
@@ -102,9 +110,7 @@ function saveToLocalStorage() {
         }    //check if last entry is today and save current glass number
     }
     
-    let alldata =[];
-    alldata=JSON.parse(datastring);
-    alldata.push(today)
+
 
 }
 
