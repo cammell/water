@@ -8,18 +8,21 @@ import '../scss/main.scss';
 
 console.log('HELLO 🚀')
 
-
-//check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
+//Set today 
 const today={
     full_date: new Date(),
     current: new Date().toISOString().slice(0, 10),
     glasses: 0,
 } 
-
 //flag for checking if today is current date in saved localStorag
 let isCurrent=false;
-checkToday();
+
+//Make DATA localStorage if it does not exists and add current date in such case
+checkLocalStorage();
+
 //check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
+
+checkToday();
 
 if(isCurrent) {
     var alldata=[];
@@ -31,71 +34,75 @@ else {
     if(checkToday()) {
 
     }
-    
 }
 
+function checkLocalStorage() {
+    if(localStorage.getItem("data")){
+        console.log("iside checkLocalStorage: IF IS TRUE ",localStorage.getItem("data"))
+        return 1;
+    }
+    else {
+        console.log("iside checkLocalStorage: IF IS FALSE ",localStorage.getItem("data"))
+        saveToLocalStorage();
+        return 0;
+    }
+    
+}
 
 //check if theres today in saved localStorage and add it if there is not
 function checkToday() {
     
     var alldata= [];
-    alldata=JSON.parse(localStorage.getItem("data"));
+    alldata.push(JSON.parse(localStorage.getItem("data")));
     console.log("inside function checkToday, ", alldata);
-if(alldata===null) {
-    isCurrent=false;
-    return 0;
-} else {
-    if(alldata.at(-1).full_date.getDate()==today.full_date.getDate()&&
-       alldata.at(-1).full_date.getMonth()==today.full_date.getMonth()&&
-       alldata.at(-1).full_date.getFullYear()==today.full_date.getFullYear()) 
-       {
-       isCurrent=true;
-       return 1;
-       }
-    else return 0;
-}
+    console.log(`Inside checkToday, alldata type is: `,typeof(alldata));
+
+
+    if(alldata===null) {
+        isCurrent=false;
+        return 0;
+    }
+    else {
+        let tmp=alldata.at(-1);
+        console.log(`Inside checkToday ELSE , check tmp value ${tmp.current}`);
+            if(tmp.current==today.current) {
+            isCurrent=true;
+            console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`)
+            return 1;
+            }
+            else return 0;
+        }
 }     
 
-let data = [];
+
 
 
 //check if today exist in dataset and if not, create it.
-if(data) {
-    //data.push(entry1); test entry
-    data.push(today); //current date
+// if(data) {
+//     //data.push(entry1); test entry
+//     data.push(today); //current date
     
-    console.log(data);
-}
-let datastring=JSON.stringify(data);
-console.log(datastring);
-
-let readData=[];
-readData=JSON.parse(datastring);
-console.log(readData);
-
-//change text value to glass number 
-const text = document.querySelector(".form__text");
-function glassCount() {
-    text.innerText=data[data.length-1].glasses;
-    
-}
-saveToLocalStorage();
-
-// console.log(localStorage.getItem('data'));
-
-// let datastring="";
-// for(let i=0;data.length;i++) {
-//     console.log('Ilość pętli for:' $i);
-//     datastring+=JSON.stringify(data[i]);
+//     console.log(data);
 // }
-// console.log(data);
+// let datastring=JSON.stringify(data);
 // console.log(datastring);
 
+// let readData=[];
+// readData=JSON.parse(datastring);
+// console.log(readData);
+
+// //change text value to glass number 
+// const text = document.querySelector(".form__text");
+// function glassCount() {
+//     text.innerText=data[data.length-1].glasses;
+    
+// }
+saveToLocalStorage();
 
 function saveToLocalStorage() {
     //data array to string
-    let datastring=null;
-    datastring=JSON.stringify(data);
+    let datastring;
+    datastring=JSON.stringify(today);
     console.log("saveToLocalStorage function: datastring: ", datastring );
     if(localStorage.getItem('data')==null) {
         localStorage.setItem('data', datastring);
