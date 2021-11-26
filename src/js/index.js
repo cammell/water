@@ -97,7 +97,7 @@ function glassCount() {
     text.innerText=today.glasses;
     
 }
-saveToLocalStorage();
+saveToLocalStorage(); 
 
 function saveToLocalStorage() {
     //data array to string
@@ -109,14 +109,24 @@ function saveToLocalStorage() {
     }
     else  {
         let alldata =[];
-        alldata=JSON.parse(localStorage.getItem('data'));        
-        if (alldata[alldata.length-1]=!today) {
-            alldata.push[today];
-            localStorage.setItem('data', JSON.parse(alldata));
+        alldata.push(JSON.parse(localStorage.getItem('data')));        
+        console.log("saveToLocalStorage alldata.current ", alldata.at(-1).current );
+        console.log("saveToLocalStorage today.current ", today.current );
+        console.log("if evaluates as:  ", (alldata[alldata.length-1].current)!=(today.current ));
+        
+        if (alldata[alldata.length-1].current!=today.current) {
+            alldata.push(today);
+            let tmp_string=null;
+            for(let i=0;i<alldata.length;i++) {
+                tmp_string+=JSON.parse(alldata[i]);
+            }
+            localStorage.setItem('data', tmp_string);
 
-        }    //check if last entry is today and save current glass number
+
+        }   else {//check if last entry is today and save current glass number
+            alldata[alldata.length-1].glasses=today.glasses;
+            }
     }
-    
 
 
 }
