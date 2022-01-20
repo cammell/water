@@ -17,63 +17,37 @@ const today={
 //flag for checking if today is current date in saved localStorag
 let isCurrent=false;
 
-//Make DATA localStorage if it does not exists and add current date in such case
-checkLocalStorage();
+
 
 //check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
 
 checkToday();
 
-if(isCurrent) {
-    var alldata=[];
-    alldata.push(today);
-    saveToLocalStorage();
-    }
-else {
-    //check if theres today in saved localStorage and add it if there is not
-    if(checkToday()) {
 
-    }
-}
 
-function checkLocalStorage() {
-    if(localStorage.getItem("data")){
-        console.log("iside checkLocalStorage: IF IS TRUE ",localStorage.getItem("data"))
-        return 1;
-    }
-    else {
-        console.log("iside checkLocalStorage: IF IS FALSE ",localStorage.getItem("data"))
-        saveToLocalStorage();
-        return 0;
-    }
-    
-}
+
 
 //check if theres today in saved localStorage and add it if there is not
 function checkToday() {
     
-    var alldata= [];
-    alldata.push(JSON.parse(localStorage.getItem("data")));
-    console.log("inside function checkToday, ", alldata);
-    console.log(`Inside checkToday, alldata type is: `,typeof(alldata));
-
-
-    if(alldata===null) {
+    if(localStorage.getItem('data')) {
+        var alldata= [];
+        alldata.push(JSON.parse(localStorage.getItem("data")));
+        let tmp=alldata.at(-1);
+        if(tmp.current==today.current) {
+            isCurrent=true;
+            console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`)
+            today.glasses=alldata.at(-1).glasses;
+            return 1;
+            } else {
+                isCurrent=false;
+                return 0;
+            } 
+    } else {
         isCurrent=false;
         return 0;
     }
-    else {
-        let tmp=alldata.at(-1);
-        console.log(`Inside checkToday ELSE , check tmp value ${tmp.current}`);
-            if(tmp.current==today.current) {
-            isCurrent=true;
-            console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`)
-            return 1;
-            }
-            else return 0;
-        }
-}     
-
+}
 
 
 
@@ -93,43 +67,61 @@ function checkToday() {
 
 //change text value to glass number 
 const text = document.querySelector(".form__text");
+
 function glassCount() {
     text.innerText=today.glasses;
-    
+    if(isCurrent) {
+       saveToLocalStorage();
+    }
+        else {
+            saveToLocalStorage();
+            glassCount();
+        }
 }
-saveToLocalStorage(); 
+
 
 function saveToLocalStorage() {
-    //data array to string
-    let datastring;
-    datastring=JSON.stringify(today);
-    console.log("saveToLocalStorage function: datastring: ", datastring );
+    let alldata =[];
+    console.log("inside function saveToLocalStorage, after declaration alldata type: ", typeof(alldata));
+    
+    
     if(localStorage.getItem('data')==null) {
-        localStorage.setItem('data', datastring);
+        localStorage.setItem('data', JSON.stringify(today));
+        alldata.push(JSON.parse(localStorage.getItem('data')));
+        console.log("inside function saveToLocalStorage, after first data save check object: ", alldata.at(-1).current);
+        console.log("inside function saveToLocalStorage, after JSON value PUSH alldata type: ", typeof(alldata));
+
+        
+
+        isCurrent=true;
     }
     else  {
-        let alldata =[];
-        alldata.push(JSON.parse(localStorage.getItem('data')));        
-        console.log("saveToLocalStorage alldata.current ", alldata.at(-1).current );
-        console.log("saveToLocalStorage today.current ", today.current );
-        console.log("if evaluates as:  ", (alldata[alldata.length-1].current)!=(today.current ));
         
-        if (alldata[alldata.length-1].current!=today.current) {
+        alldata=alldata.concat(JSON.parse(localStorage.getItem('data')));        
+        console.log("inside function saveToLocalStorage, after JSON value passing alldata type: ", typeof(alldata));
+        if (alldata.at(-1).current!=today.current) {
+            console.log("inside function saveToLocalStorage, alldata current value: ", alldata.at(-1));
+            console.log("inside function saveToLocalStorage, alldata current value: ", alldata.at(-1).current);
+            console.log("inside function saveToLocalStorage, today current value: ", today.current);
+            alert("Im about to add today to curent localStorage");
             alldata.push(today);
-            let tmp_string=null;
-            for(let i=0;i<alldata.length;i++) {
-                tmp_string+=JSON.parse(alldata[i]);
+            localStorage.setItem('data', JSON.stringify(alldata));
+            isCurrent=true;
             }
-            localStorage.setItem('data', tmp_string);
+        else {
+            alldata.at(-1).glasses=today.glasses;
+            localStorage.setItem('data', JSON.stringify(alldata));
+            isCurrent=true;
+            
+        }
 
 
-        }   else {//check if last entry is today and save current glass number
-            alldata[alldata.length-1].glasses=today.glasses;
-            }
-    }
-
-
+        }   
+    alldata=null;
 }
+
+
+
 
 const add=document.querySelector(".form__image");
 const remove=document.querySelector(".form__button");
@@ -137,7 +129,7 @@ const remove=document.querySelector(".form__button");
 add.addEventListener('click', event => {
         today.glasses+=1; 
         glassCount();
-        saveToLocalStorage();
+        
 })
 remove.addEventListener('click', event => {
     
@@ -147,9 +139,9 @@ remove.addEventListener('click', event => {
             }
         
         glassCount();
-        saveToLocalStorage();
+        
 })
-
+//change default text in the glass for number of glasses
 window.addEventListener('load', (event) => {
     glassCount();
 })
