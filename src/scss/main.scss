@@ -3,6 +3,13 @@
 @import "_variables";
 @import "modules/hello.scss";
 
+.arrow {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  flex-direction: row;
+}
+
 body {
   background: $wtf;
   color: #fff;
@@ -39,3 +46,4 @@ body {
 .h1 {
   justify-content: center;
 }
+
