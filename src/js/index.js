@@ -125,6 +125,7 @@ function saveToLocalStorage() {
 
 const add=document.querySelector(".form__image");
 const remove=document.querySelector(".form__button");
+const navi=document.querySelector(".arrow");
 
 add.addEventListener('click', event => {
         today.glasses+=1; 
@@ -141,6 +142,19 @@ remove.addEventListener('click', event => {
         glassCount();
         
 })
+
+navi.addEventListener('click', event => {
+    console.log("You have just clicked arrow");
+    console.log(document.location.pathname);
+    if(document.location.pathname=="/index.html") 
+        document.location.assign("/history.html");
+    else 
+        document.location.assign("/index.html");
+
+    
+
+})
+
 //change default text in the glass for number of glasses
 window.addEventListener('load', (event) => {
     glassCount();
