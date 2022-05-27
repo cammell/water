@@ -78,16 +78,22 @@ module.exports = {
 
     /* here you can define another html file and its dependencies */
     new HtmlWebpackPlugin({
-      template: "./src/pages/index.html",
+      template: './src/pages/index.html',
       inject: true,
-      chunks: ["index"],
-      filename: "index.html",
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/pages/history.html",
-      inject: true,
-      chunks: ["history"],
-      filename: "history.html",
-    }),
+      chunks: ['index'],
+      filename: 'index.html',
+    },
+    {
+        template: './src/pages/history.html',
+        inject: true,
+        chunks: ['history'],
+        filename: 'history.html',
+      }),
+    // new HtmlWebpackPlugin({
+    //   template: './src/pages/history.html',
+    //   inject: true,
+    //   chunks: ['history'],
+    //   filename: 'history.html',
+    // }),
   ],
 };
