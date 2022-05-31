@@ -125,7 +125,7 @@ function saveToLocalStorage() {
 
 const add=document.querySelector(".form__image");
 const remove=document.querySelector(".form__button");
-const navi=document.querySelector(".arrow");
+let navi=document.querySelector(".arrow");
 
 add.addEventListener('click', event => {
         today.glasses+=1; 
