@@ -29,15 +29,18 @@ checkToday();
 
 //check if theres today in saved localStorage and add it if there is not
 function checkToday() {
-    
+    console.log(`Inside checkToday, b4 if loops`);
     if(localStorage.getItem('data')) {
+        console.log(`Inside checkToday, LOCAL STORAGE already exists`);
         var alldata= [];
         alldata.push(JSON.parse(localStorage.getItem("data")));
         let tmp=alldata.at(-1);
+        console.log(`Inside checkToday, tmp last value: ${tmp}`);
         if(tmp.current==today.current) {
             isCurrent=true;
             console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`)
             today.glasses=alldata.at(-1).glasses;
+            console.log(`Inside checkToday, TODAY already exists`);
             return 1;
             } else {
                 isCurrent=false;
@@ -147,10 +150,9 @@ let navi=document.querySelector(".arrow");
 
 
 
-
+//Navigation arrows 
 navi.addEventListener('click', event => {
-    console.log("You have just clicked arrow");
-    console.log(document.location.pathname);
+    
     if(document.location.pathname=="/index.html") 
         document.location.assign("/history.html");
     else 
