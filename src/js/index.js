@@ -121,27 +121,32 @@ function saveToLocalStorage() {
 }
 
 
-
-
-const add=document.querySelector(".form__image");
-const remove=document.querySelector(".form__button");
-let navi=document.querySelector(".arrow");
-
-add.addEventListener('click', event => {
+//Restricted JS for index page only part
+if(document.location.pathname=="/index.html") {
+    const add=document.querySelector(".form__image");
+    const remove=document.querySelector(".form__button");
+    add.addEventListener('click', event => {
         today.glasses+=1; 
         glassCount();
-        
-})
-remove.addEventListener('click', event => {
+     })
+     remove.addEventListener('click', event => {
     
     
         if(today.glasses!=0) {
             today.glasses-=1;
             }
-        
-        glassCount();
-        
-})
+            
+        glassCount();        
+        })
+    //change default text in the glass for number of glasses
+    window.addEventListener('load', (event) => {
+            glassCount();
+    })
+}
+let navi=document.querySelector(".arrow");
+
+
+
 
 navi.addEventListener('click', event => {
     console.log("You have just clicked arrow");
@@ -155,7 +160,8 @@ navi.addEventListener('click', event => {
 
 })
 
-//change default text in the glass for number of glasses
-window.addEventListener('load', (event) => {
-    glassCount();
-})
+
+
+
+//what page im on
+console.log(document.location.pathname);
