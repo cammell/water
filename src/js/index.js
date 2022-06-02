@@ -28,9 +28,9 @@ const today={
 
 //check if theres today in saved localStorage and add it if there is not
 function checkToday() {
-    console.log(`Inside checkToday, b4 if loops`);
+    
     if(localStorage.getItem('data')) {
-        console.log(`Inside checkToday, LOCAL STORAGE already exists`);
+       
         var alldata= [];
         alldata=alldata.concat(JSON.parse(localStorage.getItem("data")));
         
@@ -82,16 +82,13 @@ function glassCount() {
 
 function saveToLocalStorage() {
     let alldata =[];
-    console.log("inside function saveToLocalStorage, after declaration alldata type: ", typeof(alldata));
+    
     
     
     if(localStorage.getItem('data')==null) {
         localStorage.setItem('data', JSON.stringify(today));
         alldata.push(JSON.parse(localStorage.getItem('data')));
-        console.log("inside function saveToLocalStorage, after first data save check object: ", alldata.at(-1).current);
-        console.log("inside function saveToLocalStorage, after JSON value PUSH alldata type: ", typeof(alldata));
-
-        
+              
 
         isCurrent=true;
     }
