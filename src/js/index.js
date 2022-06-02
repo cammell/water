@@ -34,12 +34,12 @@ function checkToday() {
         console.log(`Inside checkToday, LOCAL STORAGE already exists`);
         var alldata= [];
         alldata.push(JSON.parse(localStorage.getItem("data")));
-        let tmp=alldata.at(-1);
-        console.log(`Inside checkToday, tmp last value: ${tmp}`);
-        if(tmp.current==today.current) {
+        
+        console.log(`Inside checkToday, alldata last value: ${alldata.at(-1).current}`);
+        if(alldata.at(-1).current==today.current) {
             isCurrent=true;
-            console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`)
-            today.glasses=alldata.at(-1).glasses;
+            console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`);
+            today.glasses=tmp.at(-1).glasses;
             console.log(`Inside checkToday, TODAY already exists`);
             return 1;
             } else {
