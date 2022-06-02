@@ -6,7 +6,7 @@ import '../scss/main.scss';
 
 /* place your code below */
 
-console.log('HELLO 🚀')
+
 
 //Set today 
 const today={
@@ -14,14 +14,13 @@ const today={
     current: new Date().toISOString().slice(0, 10),
     glasses: 0,
 } 
-//flag for checking if today is current date in saved localStorag
-let isCurrent=false;
+
+    //flag for checking if today is current date in saved localStorag
+    let isCurrent=false;
 
 
 
-//check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
 
-checkToday();
 
 
 
@@ -33,14 +32,12 @@ function checkToday() {
     if(localStorage.getItem('data')) {
         console.log(`Inside checkToday, LOCAL STORAGE already exists`);
         var alldata= [];
-        alldata.push(JSON.parse(localStorage.getItem("data")));
+        alldata=alldata.concat(JSON.parse(localStorage.getItem("data")));
         
-        console.log(`Inside checkToday, alldata last value: ${alldata.at(-1).current}`);
+        
         if(alldata.at(-1).current==today.current) {
-            isCurrent=true;
-            console.log(`Inside checkToday, data is existing, isCurrent value: ${isCurrent}`);
-            today.glasses=tmp.at(-1).glasses;
-            console.log(`Inside checkToday, TODAY already exists`);
+            isCurrent=true;            
+            today.glasses=alldata.at(-1).glasses;
             return 1;
             } else {
                 isCurrent=false;
@@ -101,12 +98,8 @@ function saveToLocalStorage() {
     else  {
         
         alldata=alldata.concat(JSON.parse(localStorage.getItem('data')));        
-        console.log("inside function saveToLocalStorage, after JSON value passing alldata type: ", typeof(alldata));
+        
         if (alldata.at(-1).current!=today.current) {
-            console.log("inside function saveToLocalStorage, alldata current value: ", alldata.at(-1));
-            console.log("inside function saveToLocalStorage, alldata current value: ", alldata.at(-1).current);
-            console.log("inside function saveToLocalStorage, today current value: ", today.current);
-            alert("Im about to add today to curent localStorage");
             alldata.push(today);
             localStorage.setItem('data', JSON.stringify(alldata));
             isCurrent=true;
@@ -126,6 +119,15 @@ function saveToLocalStorage() {
 
 //Restricted JS for index page only part
 if(document.location.pathname=="/index.html") {
+    //startup routine 
+    
+
+
+    //check localStorage first. Assign alldata to current local storage or NULL if it doesnt exists
+
+    checkToday();
+
+
     const add=document.querySelector(".form__image");
     const remove=document.querySelector(".form__button");
     add.addEventListener('click', event => {
