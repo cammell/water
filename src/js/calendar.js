@@ -13,6 +13,15 @@ const textLabels = {
     en: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
  };
 
+let calEntry ={
+  year: null;,
+  month: null;,
+  day: null;,
+  glass: null ;,
+
+}
+
+
 //Navigation arrows 
 let navi=document.querySelector(".arrow");
 navi.addEventListener('click', event => {
