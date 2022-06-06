@@ -1,3 +1,4 @@
+console.log('hello from index');
 import '../scss/main.scss';
 
 // uncomment the lines below to enable PWA
@@ -114,8 +115,7 @@ function saveToLocalStorage() {
 }
 
 
-//Restricted JS for index page only part
-if(document.location.pathname=="/index.html") {
+
     //startup routine 
     
 
@@ -144,7 +144,7 @@ if(document.location.pathname=="/index.html") {
     window.addEventListener('load', (event) => {
             glassCount();
     })
-}
+
 let navi=document.querySelector(".arrow");
 
 

@@ -4,8 +4,8 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   /* here you can define another js file */
   entry: {
-    index: ['./src/js/calendar.js', './src/js/index.js'  ],
-    
+    index: ['./src/js/index.js'  ],
+    calendar: ['./src/js/calendar.js'],
   },
  
   output: {
@@ -87,7 +87,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/pages/history.html',
       inject: true,
-      chunks: ['index'],
+      chunks: ['calendar'],
       filename: 'history.html',
     }),
   ],
